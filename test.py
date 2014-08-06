@@ -5,24 +5,24 @@ if False:
     else:
         def test1(x, y):
             return x - y
-    
+
     def test2(x, y):
         return x * y
-    
+
     print test1(3, 2)   # 5
-    
+
     print test2(3, 2)   # 6
-    
+
     X = 3;
-    
+
     def test3(y):
         global X
         X = 2;
         return X * y
-    
+
     def test4(y):
         return X * y
-    
+
     print test3(2)  # 4
     print test4(2)  # 4
     print X         # 2
@@ -31,25 +31,25 @@ if False:
     import scope
     scope.test() # 100 103
     scope.f1()() # 1
-    
+
     f2 = scope.maker(2)
     print f2(3)     # 3 ** 2 = 9
     print f2(4)     # 4 ** 2 = 16
-    
+
     f3 = scope.maker(3)
     print f3(3)     # 3 ** 3 = 27
     print f3(4)     # 4 ** 3 = 64
-    
+
     f2 = scope.maker2(2)
     print f2()      # 2 ** 2 = 4
     print f2(3)     # 3 ** 2 = 9
     print f2(4)     # 4 ** 2 = 16
-    
+
     f3 = scope.maker2(3)
     print f3()      # 2 ** 3 = 8
     print f3(3)     # 3 ** 3 = 27
     print f3(4)     # 4 ** 3 = 64
-    
+
     acts = scope.maker3()
     for act in acts:
         print act(2)    # 0 1 4 9 16
@@ -79,7 +79,7 @@ if False:
     import args
     print args.minmax(lambda x, y: x < y, 1,4,7,2,5,8,3,6,9)    # 1
     print args.minmax(lambda x, y: x > y, 1,4,7,2,5,8,3,6,9)    # 9
-    
+
     def lessthan(x, y): return x < y
     def morethan(x, y): return x > y
     print args.minmax(lessthan, 1,4,7,2,5,8,3,6,9)  # 1
@@ -89,7 +89,7 @@ if False:
     import args
     print args.intersect([1,2,3,4,5,6], [3,4,5,6,7,8], [5,6,7,8,9]) # [3, 4, 5, 5, 6, 6]
     print args.union([1,2],[3,4],[5,6])                             # [1, 2, 3, 4, 5, 6]
-    
+
     print args.intersect('abcde', 'cdefg')  # ['c', 'd', 'e']
     print args.union('abcde', 'cdefg')      # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
@@ -104,21 +104,21 @@ if False:
         x = 'bcde'  # x为局部变量
     func()
     print x     # abcd（全局变量）
-    
+
     x = '12345'
     def func():
         x = 'abcd'
         print x # x为局部变量
     func()      # abcd
     print x     # 12345（全局变量）
-    
+
     x = '34567'
     def func():
         global x    # x为全局变量
         x = 'abc'
-    func()    
+    func()
     print x     # abc（全局变量）
-    
+
     x = '345'
     def func():
         x = 'efg'
@@ -127,19 +127,19 @@ if False:
         nested()
     func()
     print x     # 345（全局变量）
-    
+
     def func(a, b, c=3, d=4):
         print a,b,c,d
     func(1, *(5,6))     # 1 5 6 4
 
 
-if True:
+if False:
     def func(x):
         import function
         for f in function.List:
             print f(x)
     func(2)     # 4 8 16
-    
+
     def func(name, x):
         from function import Map
         if Map.has_key(name):
@@ -152,7 +152,7 @@ if True:
     func('func3', 3)  # 3 ** 4 = 81
     func('func4', 3)  # It's not a valid function name: func4 , valid function names: ['func3', 'func2', 'func1']
                       # It's not a valid function name:func4, valid function names:['func3', 'func2', 'func1']
-    
+
     def func():
         from function import Map
         print Map.keys()        # ['func3', 'func2', 'func1']
@@ -162,12 +162,12 @@ if True:
         print Map.viewvalues()  # dict_values([<function <lambda> at 0x21feed8>, <function <lambda> at 0x21fee60>, <function <lambda> at 0x21fede8>])
         print Map.viewitems()   # dict_items([('func3', <function <lambda> at 0x21feed8>), ('func2', <function <lambda> at 0x21fee60>), ('func1', <function <lambda> at 0x21fede8>)])
     func()
-    
+
     def func():
         from function import Lower
         print Lower('123', '456')
     func()      # 123
-    
+
     def func():
         from function import Show, ShowAll
         Show('1234\n')      # 1234
@@ -177,10 +177,31 @@ if True:
     def func():
         from function import Nested
         print Nested(2)(3)      # 5
-        
+
         f = Nested(5)
         print f(2)      # 7
         print f(4)      # 9
     func();
 
-    
+if True:
+    from function import ApplayFunc
+    print apply(ApplayFunc)         # 6
+    print apply(ApplayFunc, (3,5,6))    # 14
+    print ApplayFunc(*(3,5,6));         # 14
+
+    from function import MapFunc, MapFunc2
+    print MapFunc(2, [5, 6, 7])     # [7, 8, 9]
+    print MapFunc(5, [5, 6, 7])     # [10, 11, 12]
+    print MapFunc2([1, 2, 3], [2, 3, 4])     # [1, 8, 81]
+
+    from function import FilterFunc
+    print FilterFunc(3, *(1,6))     # range(1, 6) && > 3 = [4, 5]
+    print FilterFunc(3, -1, 10, 2)  # range(-1, 10, 2) && > 3 = [5, 7, 9]
+
+    from function import ReduceFunc
+    from operator import add,mul
+    print ReduceFunc(lambda x,y: x+y, [1,2,3,4])    # 1+2+3+4 = 10
+    print ReduceFunc(lambda x,y: x*y, [1,2,3,4])    # 1*2*3*4 = 24
+    print ReduceFunc(add, [1,2,3,4])    # 1+2+3+4 = 10
+    print ReduceFunc(mul, [1,2,3,4])    # 1*2*3*4 = 24
+
