@@ -54,7 +54,7 @@ if False:
     for act in acts:
         print act(2)    # 0 1 4 9 16
 
-if True:
+if False:
     import args
     args.f1()               # 1 2 3
     args.f1(3, 2, 1)        # 3 2 1
@@ -75,7 +75,7 @@ if True:
     args.f4(x=5, y=6)                   # -1 -2 () {'y': 6, 'x': 5}
     args.f4(9, 8, 1, 2, 3, x=5, y=6)    # 9 8 (1, 2, 3) {'y': 6, 'x': 5}
 
-if True:
+if False:
     import args
     print args.minmax(lambda x, y: x < y, 1,4,7,2,5,8,3,6,9)    # 1
     print args.minmax(lambda x, y: x > y, 1,4,7,2,5,8,3,6,9)    # 9
@@ -85,7 +85,7 @@ if True:
     print args.minmax(lessthan, 1,4,7,2,5,8,3,6,9)  # 1
     print args.minmax(morethan, 1,4,7,2,5,8,3,6,9)  # 9
 
-if True:
+if False:
     import args
     print args.intersect([1,2,3,4,5,6], [3,4,5,6,7,8], [5,6,7,8,9]) # [3, 4, 5, 5, 6, 6]
     print args.union([1,2],[3,4],[5,6])                             # [1, 2, 3, 4, 5, 6]
@@ -93,5 +93,43 @@ if True:
     print args.intersect('abcde', 'cdefg')  # ['c', 'd', 'e']
     print args.union('abcde', 'cdefg')      # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
+if True:
+    x = 'abc'
+    def func():
+        print x # x为全局变量
+    func()  # abc（全局变量）
+
+    x = 'abcd'
+    def func():
+        x = 'bcde'  # x为局部变量
+    func()
+    print x     # abcd（全局变量）
+    
+    x = '12345'
+    def func():
+        x = 'abcd'
+        print x # x为局部变量
+    func()      # abcd
+    print x     # 12345（全局变量）
+    
+    x = '34567'
+    def func():
+        global x    # x为全局变量
+        x = 'abc'
+    func()    
+    print x     # abc（全局变量）
+    
+    x = '345'
+    def func():
+        x = 'efg'
+        def nested():
+            print x     # efg（局部变量）
+        nested()
+    func()
+    print x     # 345（全局变量）
+    
+    def func(a, b, c=3, d=4):
+        print a,b,c,d
+    func(1, *(5,6))     # 1 5 6 4
 
     
