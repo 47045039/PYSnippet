@@ -93,7 +93,7 @@ if False:
     print args.intersect('abcde', 'cdefg')  # ['c', 'd', 'e']
     print args.union('abcde', 'cdefg')      # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
-if True:
+if False:
     x = 'abc'
     def func():
         print x # x为全局变量
@@ -131,5 +131,56 @@ if True:
     def func(a, b, c=3, d=4):
         print a,b,c,d
     func(1, *(5,6))     # 1 5 6 4
+
+
+if True:
+    def func(x):
+        import function
+        for f in function.List:
+            print f(x)
+    func(2)     # 4 8 16
+    
+    def func(name, x):
+        from function import Map
+        if Map.has_key(name):
+            print Map[name](x)
+        else:
+            print 'It\'s not a valid function name:', name, ', valid function names:', Map.keys()
+            print 'It\'s not a valid function name:' + name + ', valid function names:' + str(Map.keys())
+    func('func1', 3)  # 3 ** 2 = 9
+    func('func2', 3)  # 3 ** 3 = 27
+    func('func3', 3)  # 3 ** 4 = 81
+    func('func4', 3)  # It's not a valid function name: func4 , valid function names: ['func3', 'func2', 'func1']
+                      # It's not a valid function name:func4, valid function names:['func3', 'func2', 'func1']
+    
+    def func():
+        from function import Map
+        print Map.keys()        # ['func3', 'func2', 'func1']
+        print Map.values()      # [<function <lambda> at 0x21feed8>, <function <lambda> at 0x21fee60>, <function <lambda> at 0x21fede8>]
+        print Map.iteritems()   # <dictionary-itemiterator object at 0x226ef18>
+        print Map.viewkeys()    # dict_keys(['func3', 'func2', 'func1'])
+        print Map.viewvalues()  # dict_values([<function <lambda> at 0x21feed8>, <function <lambda> at 0x21fee60>, <function <lambda> at 0x21fede8>])
+        print Map.viewitems()   # dict_items([('func3', <function <lambda> at 0x21feed8>), ('func2', <function <lambda> at 0x21fee60>), ('func1', <function <lambda> at 0x21fede8>)])
+    func()
+    
+    def func():
+        from function import Lower
+        print Lower('123', '456')
+    func()      # 123
+    
+    def func():
+        from function import Show, ShowAll
+        Show('1234\n')      # 1234
+        ShowAll(('1,2,3,4\n', '4,5,6,7\n', '7,8,9\n'))  # 1,2,3,4\n 4,5,6,7\n 7,8,9\n
+    func()
+
+    def func():
+        from function import Nested
+        print Nested(2)(3)      # 5
+        
+        f = Nested(5)
+        print f(2)      # 7
+        print f(4)      # 9
+    func();
 
     
