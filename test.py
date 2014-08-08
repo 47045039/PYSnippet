@@ -183,7 +183,7 @@ if False:
         print f(4)      # 9
     func();
 
-if True:
+if False:
     from function import ApplayFunc
     print apply(ApplayFunc)         # 6
     print apply(ApplayFunc, (3,5,6))    # 14
@@ -205,3 +205,17 @@ if True:
     print ReduceFunc(add, [1,2,3,4])    # 1+2+3+4 = 10
     print ReduceFunc(mul, [1,2,3,4])    # 1*2*3*4 = 24
 
+if True:
+    print [x for x in range(5)]     # [0, 1, 2, 3, 4]
+    print [x * 2 for x in range(5) if x % 2 == 0]     # [0, 4, 8]
+    print filter(lambda x: x%2 == 0, range(5))      # [0, 2, 4]
+    print map(lambda x: x*2, filter(lambda x: x%2 == 0, range(5)))  # [0, 4, 8]
+    print [(x,y) for x in 'abc' for y in 'de']  # [('a', 'd'), ('a', 'e'), ('b', 'd'), ('b', 'e'), ('c', 'd'), ('c', 'e')]
+    print [(x,y) for x in range(3) if x%2 == 0 for y in range(4) if y%2 == 1]   # [(0, 1), (0, 3), (2, 1), (2, 3)], x=0/2, y=1/3
+
+    M = [[1,4,7], [2,5,8], [3,6,9]]
+    print [row[1] for row in M]     # [4, 5, 6]
+
+    ARR = [('john',35,'mgr'), ('bob',20,'dev')]
+    print [age for (name,age,job) in ARR]           # [35, 20]
+    print map((lambda (name,age,job): age), ARR)    # [35, 20]
